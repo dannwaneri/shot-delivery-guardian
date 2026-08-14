@@ -1,0 +1,14 @@
+{
+  "_note": "Reference skeleton, not a working Grafana export. Recreate this in Grafana Cloud's Alerting UI (or the Grafana Terraform provider) and export the real definition back into this file once it exists.",
+  "title": "Shot delivery at risk",
+  "condition_description": "projected completion time for the affected stage exceeds the shot's deadline",
+  "query": "render_queue_depth{stage=\"render\"} / clamp_min(rate(stage_completions_total{stage=\"render\"}[5m]), 0.001)",
+  "for": "2m",
+  "labels": {
+    "severity": "warning"
+  },
+  "annotations": {
+    "summary": "Episode {{ $labels.episode_id }} has shot(s) at risk of missing their delivery deadline"
+  },
+  "webhook_target": "https://shot-agent-REPLACE.run.app/investigate"
+}
